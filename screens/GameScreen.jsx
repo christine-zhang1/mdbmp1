@@ -12,6 +12,7 @@ export default function GameScreen() {
 
   // State for the timer is handled for you.
   const [timeLeft, setTimeLeft] = useState(5000);
+  const [expired, setExpired] = useState(false);
 
   // Called by the timer every 10 seconds
   const countDown = () => {
@@ -21,6 +22,7 @@ export default function GameScreen() {
     } else {
       // Time has expired
       // TODO: update appropriate state variables
+      setExpired(true);
     }
   };
 
@@ -46,6 +48,7 @@ export default function GameScreen() {
     // TODO: Update state here.
 
     setTimeLeft(5000);
+    setExpired(false);
   };
 
   // Called when user taps a name option.
