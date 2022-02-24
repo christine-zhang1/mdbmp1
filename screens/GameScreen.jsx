@@ -20,6 +20,7 @@ export default function GameScreen() {
   const [tempNames, setTempNames] = useState([]);
   const [tempImage, setTempImage] = useState();
   const [tempCorrectName, setTempCorrectName] = useState();
+  const [tempCorrectIndex, setTempCorrectIndex] = useState();
 
   // Called by the timer every 10 seconds
   const countDown = () => {
@@ -85,7 +86,10 @@ export default function GameScreen() {
   // get the next round when the appropriate state variable changes.
   useEffect(
     () => {
-      getNextRound();
+      getBuffer();
+      setTimeout(() => {
+        getNextRound()
+      }, 2000)
     },
     [
       expired, tapped
@@ -96,6 +100,9 @@ export default function GameScreen() {
   const nameButtons = [];
   for (let i = 0; i < 4; i++) {
     const j = i;
+    if (tempNames[i] == tempCorrectIndex) {
+      setTempCorrectIndex(j);
+    }
     nameButtons.push(
       // A button is just a Text component wrapped in a TouchableOpacity component.
       <TouchableOpacity
@@ -104,10 +111,24 @@ export default function GameScreen() {
         onPress={() => selectedNameChoice(j)}
       >
         <Text style={styles.buttonText}>
-          {tempNames[i]}
+          {tempNames[j]}
         </Text>
       </TouchableOpacity>
     );
+  }
+
+  const getBuffer = () => {
+    if (tapped | expired) {
+      nameButtons[tempCorrectIndex] = 
+        <TouchableOpacity
+        key={tempCorrectIndex}
+        style={styles.buttonCorrect}
+        >
+          <Text style={styles.buttonText}>
+            {tempNames[tempCorrectIndex]}
+          </Text>
+        </TouchableOpacity>
+    }
   }
 
   const timeRemainingStr = (timeLeft / 1000).toFixed(2);
@@ -116,19 +137,18 @@ export default function GameScreen() {
   return (
     <View style = {styles.container}>
       {/* TODO: Build out your UI using Text and Image components. */
-        <>
-          <View>
-              <Text style = {styles.scoreText}>{score} / {total}</Text>
-              <Image
-                style={styles.image}
-                source={tempImage}
-              />
-              {nameButtons[0]}
-              {nameButtons[1]}
-              {nameButtons[2]}
-              {nameButtons[3]}
-          </View>
-        </>
+        <View>
+            <Text style = {styles.timerText}>{timeRemainingStr}</Text>
+            <Text style = {styles.scoreText}>{score} / {total}</Text>
+            <Image
+              style={styles.image}
+              source={tempImage}
+            />
+            {nameButtons[0]}
+            {nameButtons[1]}
+            {nameButtons[2]}
+            {nameButtons[3]}
+        </View>
       }
       {/* Hint: What does the nameButtons list above hold? 
           What types of objects is this list storing?
