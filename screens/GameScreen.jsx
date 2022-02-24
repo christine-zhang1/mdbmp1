@@ -23,6 +23,7 @@ export default function GameScreen() {
       // Time has expired
       // TODO: update appropriate state variables
       setExpired(true);
+      getNextRound();
     }
   };
 
