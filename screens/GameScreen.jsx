@@ -69,6 +69,7 @@ export default function GameScreen() {
   const selectedNameChoice = (index) => {
     if (tempNames[index] == tempCorrectName) {
       setScore(score + 1);
+      setButtonStyle(styles.buttonCorrect);
     }
     setTapped(true);
     setTotal(total + 1);
@@ -86,10 +87,7 @@ export default function GameScreen() {
   // get the next round when the appropriate state variable changes.
   useEffect(
     () => {
-      getBuffer();
-      setTimeout(() => {
-        getNextRound()
-      }, 2000)
+      getNextRound();
     },
     [
       expired, tapped
@@ -117,20 +115,6 @@ export default function GameScreen() {
     );
   }
 
-  const getBuffer = () => {
-    if (tapped | expired) {
-      nameButtons[tempCorrectIndex] = 
-        <TouchableOpacity
-        key={tempCorrectIndex}
-        style={styles.buttonCorrect}
-        >
-          <Text style={styles.buttonText}>
-            {tempNames[tempCorrectIndex]}
-          </Text>
-        </TouchableOpacity>
-    }
-  }
-
   const timeRemainingStr = (timeLeft / 1000).toFixed(2);
 
   // Style & return the view.
@@ -150,9 +134,6 @@ export default function GameScreen() {
             {nameButtons[3]}
         </View>
       }
-      {/* Hint: What does the nameButtons list above hold? 
-          What types of objects is this list storing?
-          Try to get a sense of what's going on in the for loop above. */}
     </View>
   );
 }
