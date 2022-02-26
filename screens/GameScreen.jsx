@@ -69,7 +69,6 @@ export default function GameScreen() {
   const selectedNameChoice = (index) => {
     if (tempNames[index] == tempCorrectName) {
       setScore(score + 1);
-      setButtonStyle(styles.buttonCorrect);
     }
     setTapped(true);
     setTotal(total + 1);

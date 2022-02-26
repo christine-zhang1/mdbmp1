@@ -14,13 +14,6 @@ const styles = StyleSheet.create({
     paddingHorizontal: 10,
     backgroundColor: "#3498db",
   },
-  buttonCorrect: {
-    alignItems: "center",
-    marginTop: 20,
-    paddingVertical: 10,
-    paddingHorizontal: 10,
-    backgroundColor: "#61C765",
-  },
   imageView: { height: "30%", width: "100%" },
   imageLogo: {
     flex: 1,
