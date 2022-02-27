@@ -121,8 +121,8 @@ export default function GameScreen() {
     <View style = {styles.container}>
       {/* TODO: Build out your UI using Text and Image components. */
         <View>
-            <Text style = {styles.timerText}>{timeRemainingStr}</Text>
-            <Text style = {styles.scoreText}>{score} / {total}</Text>
+            <Text style = {styles.timerText}>Time Remaining: {timeRemainingStr}</Text>
+            <Text style = {styles.scoreText}>Score: {score} / {total}</Text>
             <Image
               style={styles.image}
               source={tempImage}
